@@ -10,6 +10,8 @@ namespace project_18
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddMemoryCache();
+            builder.Services.AddSession();
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -29,6 +31,8 @@ namespace project_18
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
+
             app.UseAuthorization();
 
             app.MapControllerRoute(
