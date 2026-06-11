@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-5">
+        <div class="card p-4 shadow-sm">
+            <h3 class="fw-bold text-center text-dark mb-4">🛍️ Login to BalaMarket</h3>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @ViewBag.Error
+                </div>
+            }
+
+            <form method="post" asp-controller="Account" asp-action="Login">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" required placeholder="Enter username..." />
+                </div>
+                
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" required placeholder="Enter password..." />
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 mb-3">Login</button>
+            </form>
+
+            <div class="text-center mt-2">
+                <span class="text-muted">Don't have an account?</span>
+                <a asp-controller="Account" asp-action="Register" class="text-primary fw-bold text-decoration-none ms-1">Register here</a>
+            </div>
+
+            <div class="alert alert-info mt-4 mb-0 small">
+                <strong>Testing Hint:</strong><br />
+                - Admin Login: <code>admin</code> / <code>admin123</code><br />
+                - Registered users log in as Customers.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
