@@ -1,17 +1,72 @@
+@using Microsoft.AspNetCore.Http
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>project_18</title>
+    <title>@ViewData["Title"] - BalaMarket</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">project_18</a>
+                <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">🛍️ BalaMarket</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light fw-bold" asp-controller="Home" asp-action="Index">Catalog</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav gap-2 align-items-center">
+                        @{
+                            var username = Context.Session.GetString("Username");
+                            var role = Context.Session.GetString("Role");
+                            var fullName = Context.Session.GetString("FullName");
+                            var cartStr = Context.Session.GetString("CartProductIds") ?? "";
+                            var cartCount = string.IsNullOrEmpty(cartStr) ? 0 : cartStr.Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+                        }
+
+                        @if (username != null)
+                        {
+                            <li class="nav-item me-2">
+                                <span class="text-white opacity-75">Welcome, @fullName</span>
+                            </li>
+                            if (role == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-light btn-sm" asp-controller="Home" asp-action="AdminDashboard">Admin Dashboard</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-light btn-sm" asp-controller="Home" asp-action="MyOrders">My Purchases</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-warning btn-sm text-dark fw-bold" asp-controller="Home" asp-action="Cart">🛒 Cart (@cartCount)</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="btn btn-danger btn-sm fw-bold" asp-controller="Account" asp-action="Logout">Log out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
@@ -20,10 +75,17 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted text-center py-3">
-        &copy; 2026 - project_18
+
+    <footer class="border-top footer text-muted text-center py-3 bg-white mt-auto">
+        <div class="container">
+            &copy; 2026 - BalaMarket - High Quality Used Goods Marketplace
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
