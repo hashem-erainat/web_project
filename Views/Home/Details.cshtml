@@ -1,0 +1,76 @@
+@model project_18.Models.Product
+@{
+    ViewData["Title"] = Model.Name + " - Product Details";
+}
+
+<div class="mb-4">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">← Back to Catalog</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card product-card @(Model.IsSold ? "sold-out" : "")">
+            @if (Model.IsSold)
+            {
+                <div class="sold-out-overlay">
+                    <div class="sold-out-stamp">SOLD OUT</div>
+                </div>
+            }
+            <img src="@Model.ImageUrl" class="card-img-top w-100" style="max-height: 450px; object-fit: cover;" alt="@Model.Name" onerror="this.src='/images/placeholder.png';" />
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card p-4 h-100">
+            <div>
+                @if (Model.Condition == "Excellent")
+                {
+                    <span class="badge bg-success fs-6">Condition: Excellent</span>
+                }
+                else if (Model.Condition == "Very Good")
+                {
+                    <span class="badge bg-info text-dark fs-6">Condition: Very Good</span>
+                }
+                else if (Model.Condition == "Good")
+                {
+                    <span class="badge bg-warning text-dark fs-6">Condition: Good</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger fs-6">Condition: Acceptable</span>
+                }
+                <span class="badge bg-secondary fs-6 ms-2">Category: @(Model.Category?.Name ?? "General")</span>
+            </div>
+            
+            <h2 class="fw-bold text-dark mt-3">@Model.Name</h2>
+            <hr />
+            
+            <h3 class="text-success fw-bold my-3">Price: ₪ @Model.Price.ToString("F2")</h3>
+            
+            <div class="mb-4">
+                <h5 class="fw-bold text-dark">Description:</h5>
+                <p class="text-muted" style="white-space: pre-wrap; line-height: 1.6;">@Model.Description</p>
+            </div>
+            
+            <div class="mt-auto">
+                @if (Model.IsSold)
+                {
+                    <div class="alert alert-danger text-center fw-bold">
+                        🚫 Sorry, this item has been sold and is no longer available.
+                    </div>
+                }
+                else
+                {
+                    <form method="post" asp-controller="Home" asp-action="AddToCart">
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <button type="submit" class="btn btn-primary btn-lg w-100 py-3 fw-bold">🛒 Add to Cart</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
