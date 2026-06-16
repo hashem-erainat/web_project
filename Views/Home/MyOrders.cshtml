@@ -1,0 +1,61 @@
+@model List<project_18.Models.Order>
+@{
+    ViewData["Title"] = "My Purchases";
+}
+
+<h2 class="fw-bold text-dark mb-4">📦 My Purchases</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="card p-5 text-center">
+        <h4 class="text-muted mb-4">You haven't purchased any items yet.</h4>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary px-4">Browse Catalog</a>
+    </div>
+}
+else
+{
+    <div class="card p-3 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Purchase Date</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>#@order.OrderId</td>
+                            <td>
+                                <img src="@order.Product?.ImageUrl" class="rounded" style="width: 50px; height: 50px; object-fit: cover;" alt="@order.Product?.Name" onerror="this.src='/images/placeholder.png';" />
+                            </td>
+                            <td class="fw-bold">@order.Product?.Name</td>
+                            <td>@order.PurchaseDate.ToLocalTime().ToString("g")</td>
+                            <td class="text-success fw-bold">₪ @order.TotalPrice.ToString("F2")</td>
+                            <td>
+                                <span class="badge bg-success">@order.Status</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+
+
+

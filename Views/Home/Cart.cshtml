@@ -1,0 +1,103 @@
+@model List<project_18.Models.Product>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Shopping Cart";
+    var username = Context.Session.GetString("Username");
+    decimal total = Model.Sum(p => p.Price);
+}
+
+<h2 class="fw-bold text-dark mb-4">🛒 Shopping Cart</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (Model.Count == 0)
+{
+    <div class="card p-5 text-center">
+        <h4 class="text-muted mb-4">Your shopping cart is currently empty.</h4>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg px-4 d-inline-block mx-auto">Browse Catalog</a>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card p-3 shadow-sm">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Name</th>
+                                <th>Condition</th>
+                                <th>Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="width: 80px;">
+                                        <img src="@item.ImageUrl" class="rounded" style="width: 60px; height: 60px; object-fit: cover;" alt="@item.Name" onerror="this.src='/images/placeholder.png';" />
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@item.ProductId" class="text-decoration-none text-dark fw-bold">@item.Name</a>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">@item.Condition</span>
+                                    </td>
+                                    <td class="fw-bold text-success">
+                                        ₪ @item.Price.ToString("F2")
+                                    </td>
+                                    <td>
+                                        <form method="post" asp-controller="Home" asp-action="RemoveFromCart" class="d-inline">
+                                            <input type="hidden" name="productId" value="@item.ProductId" />
+                                            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card p-4 shadow-sm">
+                <h4 class="fw-bold text-dark mb-4 border-bottom pb-2">Order Summary</h4>
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Total Items:</span>
+                    <span class="fw-bold">@Model.Count</span>
+                </div>
+                <div class="d-flex justify-content-between mb-4 fs-5 border-top pt-3">
+                    <span>Total Price:</span>
+                    <span class="fw-bold text-success">₪ @total.ToString("F2")</span>
+                </div>
+
+                @if (username != null)
+                {
+                    <form method="post" asp-controller="Home" asp-action="Checkout">
+                        <button type="submit" class="btn btn-success btn-lg w-100 py-2">💳 Confirm Purchase</button>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-warning text-center">
+                        <p class="mb-2">You must log in to complete your purchase.</p>
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-sm w-100">Login Now</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
