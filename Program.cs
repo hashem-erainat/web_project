@@ -8,6 +8,7 @@ namespace project_18
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            AppDomain.CurrentDomain.SetData("DataDirectory", builder.Environment.ContentRootPath);
 
             // Add services to the container.
             builder.Services.AddMemoryCache();

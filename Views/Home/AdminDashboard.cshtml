@@ -187,7 +187,28 @@
                         <td>@order.PurchaseDate.ToLocalTime().ToString("g")</td>
                         <td class="text-success fw-bold">₪ @order.TotalPrice.ToString("F2")</td>
                         <td>
-                            <span class="badge bg-success">@order.Status</span>
+                            @if (order.Status == "Pending")
+                            {
+                                <span class="badge bg-warning text-dark mb-2">Pending Approval</span>
+                                <div class="d-flex gap-1">
+                                    <form method="post" asp-controller="Home" asp-action="ApproveOrder">
+                                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                                        <button type="submit" class="btn btn-success btn-sm py-0 px-2 fw-bold" style="font-size: 0.75rem;">Approve</button>
+                                    </form>
+                                    <form method="post" asp-controller="Home" asp-action="RejectOrder">
+                                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                                        <button type="submit" class="btn btn-danger btn-sm py-0 px-2 fw-bold" style="font-size: 0.75rem;">Reject</button>
+                                    </form>
+                                </div>
+                            }
+                            else if (order.Status == "Completed")
+                            {
+                                <span class="badge bg-success">Approved ✅</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Rejected ❌</span>
+                            }
                         </td>
                     </tr>
                 }

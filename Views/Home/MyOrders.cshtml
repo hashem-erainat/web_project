@@ -46,7 +46,18 @@ else
                             <td>@order.PurchaseDate.ToLocalTime().ToString("g")</td>
                             <td class="text-success fw-bold">₪ @order.TotalPrice.ToString("F2")</td>
                             <td>
-                                <span class="badge bg-success">@order.Status</span>
+                                @if (order.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">Pending Admin Approval</span>
+                                }
+                                else if (order.Status == "Completed")
+                                {
+                                    <span class="badge bg-success">Approved ✅</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Rejected ❌</span>
+                                }
                             </td>
                         </tr>
                     }

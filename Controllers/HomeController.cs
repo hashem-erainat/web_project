@@ -99,14 +99,14 @@ namespace project_18.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            ViewBag.TotalSales = context.Orders.Sum(o => o.TotalPrice);
+            ViewBag.TotalSales = context.Orders.Where(o => o.Status == "Completed").Sum(o => o.TotalPrice);
             ViewBag.AvailableCount = context.Products.Count(p => !p.IsSold);
             ViewBag.SoldCount = context.Products.Count(p => p.IsSold);
             ViewBag.Categories = context.Categories.OrderBy(c => c.Name).ToList();
 
             var products = context.Products.Include(p => p.Category)
-                                          .OrderByDescending(p => p.CreatedAt)
-                                          .ToList();
+                                           .OrderByDescending(p => p.CreatedAt)
+                                           .ToList();
 
             ViewBag.AllOrders = context.Orders.Include(o => o.Product)
                                               .Include(o => o.User)
@@ -196,7 +196,7 @@ namespace project_18.Controllers
                     ProductId = product.ProductId,
                     PurchaseDate = DateTime.UtcNow,
                     TotalPrice = product.Price,
-                    Status = "Completed"
+                    Status = "Pending"
                 };
                 context.Orders.Add(order);
                 product.IsSold = true;
@@ -204,9 +204,55 @@ namespace project_18.Controllers
 
             context.SaveChanges();
             HttpContext.Session.Remove("CartProductIds");
-            TempData["SuccessMessage"] = "Purchase completed successfully!";
+            TempData["SuccessMessage"] = "Purchase requested successfully! Waiting for admin approval.";
 
             return RedirectToAction("MyOrders");
+        }
+
+        [HttpPost]
+        public IActionResult ApproveOrder(int orderId)
+        {
+            string role = HttpContext.Session.GetString("Role") ?? "";
+            if (role != "Admin")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var order = context.Orders.Include(o => o.Product).FirstOrDefault(o => o.OrderId == orderId);
+            if (order != null && order.Status == "Pending")
+            {
+                order.Status = "Completed";
+                if (order.Product != null)
+                {
+                    order.Product.IsSold = true;
+                }
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("AdminDashboard");
+        }
+
+        [HttpPost]
+        public IActionResult RejectOrder(int orderId)
+        {
+            string role = HttpContext.Session.GetString("Role") ?? "";
+            if (role != "Admin")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var order = context.Orders.Include(o => o.Product).FirstOrDefault(o => o.OrderId == orderId);
+            if (order != null && order.Status == "Pending")
+            {
+                order.Status = "Rejected";
+                if (order.Product != null)
+                {
+                    order.Product.IsSold = false;
+                }
+                context.SaveChanges();
+            }
+
+            return RedirectToAction("AdminDashboard");
         }
 
         [HttpPost]

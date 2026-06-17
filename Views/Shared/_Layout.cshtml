@@ -10,17 +10,17 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark modern-nav">
             <div class="container">
                 <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">🛍️ BalaMarket</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light fw-bold" asp-controller="Home" asp-action="Index">Catalog</a>
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Catalog</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav gap-2 align-items-center">
@@ -35,34 +35,34 @@
                         @if (username != null)
                         {
                             <li class="nav-item me-2">
-                                <span class="text-white opacity-75">Welcome, @fullName</span>
+                                <span class="text-white opacity-75 small">Welcome, <strong class="text-warning">@fullName</strong></span>
                             </li>
                             if (role == "Admin")
                             {
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-light btn-sm" asp-controller="Home" asp-action="AdminDashboard">Admin Dashboard</a>
+                                    <a class="btn btn-outline-warning btn-sm modern-nav-btn" asp-controller="Home" asp-action="AdminDashboard">⚙️ Admin Dashboard</a>
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-light btn-sm" asp-controller="Home" asp-action="MyOrders">My Purchases</a>
+                                    <a class="btn btn-outline-light btn-sm modern-nav-btn" asp-controller="Home" asp-action="MyOrders">📦 My Purchases</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn btn-warning btn-sm text-dark fw-bold" asp-controller="Home" asp-action="Cart">🛒 Cart (@cartCount)</a>
+                                    <a class="btn btn-warning btn-sm text-dark fw-bold modern-nav-btn" asp-controller="Home" asp-action="Cart">🛒 Cart (@cartCount)</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="btn btn-danger btn-sm fw-bold" asp-controller="Account" asp-action="Logout">Log out</a>
+                                <a class="btn btn-danger btn-sm fw-bold modern-nav-btn" asp-controller="Account" asp-action="Logout">Log out</a>
                             </li>
                         }
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Register">Register</a>
+                                <a class="btn btn-outline-light btn-sm modern-nav-btn" asp-controller="Account" asp-action="Register">Register</a>
                             </li>
                         }
                     </ul>
@@ -83,6 +83,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 

@@ -55,5 +55,66 @@ body {
     letter-spacing: 1px;
 }
 
+/* Premium Modern Navbar Styling */
+.modern-nav {
+    background: rgba(30, 34, 42, 0.96) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 0.9rem 1.5rem;
+    border-radius: 0 0 16px 16px;
+    margin-bottom: 2rem !important;
+}
+
+.modern-nav .navbar-brand {
+    font-size: 1.45rem;
+    font-weight: 800 !important;
+    background: linear-gradient(135deg, #ffc107, #ff8c00, #ff4e50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.modern-nav .navbar-brand:hover {
+    transform: scale(1.04);
+}
+
+.modern-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 600;
+    padding: 0.5rem 1.1rem !important;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.modern-nav .nav-link:hover {
+    color: #ffc107 !important;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.modern-nav-btn {
+    border-radius: 30px !important;
+    padding: 0.45rem 1.3rem !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+.modern-nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.25);
+}
+
+.modern-nav-btn.btn-danger:hover {
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+}
+
+.modern-nav-btn.btn-outline-light:hover {
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
+}
+
 
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using project_18.Data;
 
@@ -11,9 +12,10 @@ using project_18.Data;
 namespace project_18.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260617093812_UpdateSeededProductsAndCategories")]
+    partial class UpdateSeededProductsAndCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,7 +153,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500",
                             IsSold = false,
                             Name = "Used iPhone 13 Pro (128GB) - Graphite",
-                            Price = 1600.00m
+                            Price = 450.00m
                         },
                         new
                         {
@@ -163,7 +165,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500",
                             IsSold = false,
                             Name = "Dell UltraSharp 27\" Monitor (U2719D)",
-                            Price = 550.00m
+                            Price = 120.00m
                         },
                         new
                         {
@@ -175,7 +177,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
                             IsSold = false,
                             Name = "Sony WH-1000XM4 Wireless Headphones",
-                            Price = 480.00m
+                            Price = 140.00m
                         },
                         new
                         {
@@ -187,7 +189,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1621972750749-0fbb1abb7736?w=500",
                             IsSold = false,
                             Name = "Philips Air Fryer XXL",
-                            Price = 350.00m
+                            Price = 75.00m
                         },
                         new
                         {
@@ -199,7 +201,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1579888944880-d98341148733?w=500",
                             IsSold = false,
                             Name = "Nespresso Lattissima Touch Coffee Machine",
-                            Price = 450.00m
+                            Price = 110.00m
                         },
                         new
                         {
@@ -211,7 +213,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500",
                             IsSold = false,
                             Name = "Modern Fabric Loveseat Sofa",
-                            Price = 750.00m
+                            Price = 220.00m
                         },
                         new
                         {
@@ -223,7 +225,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=500",
                             IsSold = false,
                             Name = "Solid Wood Study Desk",
-                            Price = 280.00m
+                            Price = 95.00m
                         },
                         new
                         {
@@ -235,7 +237,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1505797149-43b0069ec26b?w=500",
                             IsSold = false,
                             Name = "Adjustable Ergonomic Office Chair",
-                            Price = 200.00m
+                            Price = 65.00m
                         },
                         new
                         {
@@ -247,7 +249,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",
                             IsSold = false,
                             Name = "Men's Levi's 511 Slim Fit Jeans",
-                            Price = 90.00m
+                            Price = 25.00m
                         },
                         new
                         {
@@ -259,7 +261,7 @@ namespace project_18.Migrations
                             ImageUrl = "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500",
                             IsSold = false,
                             Name = "North Face Waterproof Windbreaker Jacket",
-                            Price = 180.00m
+                            Price = 48.00m
                         });
                 });
 
