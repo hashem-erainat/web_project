@@ -42,7 +42,7 @@ namespace project_18.Data
                     UserId = 1,
                     Username = "admin",
                     Password = "admin123",
-                    FullName = "BalaMarket Admin",
+                    FullName = "Mostamal Market Admin",
                     Role = "Admin"
                 }
             );
