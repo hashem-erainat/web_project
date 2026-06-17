@@ -55,7 +55,7 @@ else
                                         ₪ @item.Price.ToString("F2")
                                     </td>
                                     <td>
-                                        <form method="post" asp-controller="Home" asp-action="RemoveFromCart" class="d-inline">
+                                        <form method="post" asp-controller="Cart" asp-action="Remove" class="d-inline">
                                             <input type="hidden" name="productId" value="@item.ProductId" />
                                             <button type="submit" class="btn btn-sm btn-danger">Remove</button>
                                         </form>
@@ -82,7 +82,7 @@ else
 
                 @if (username != null)
                 {
-                    <form method="post" asp-controller="Home" asp-action="Checkout">
+                    <form method="post" asp-controller="Order" asp-action="Checkout">
                         <button type="submit" class="btn btn-success btn-lg w-100 py-2">💳 Confirm Purchase</button>
                     </form>
                 }

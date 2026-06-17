@@ -43,7 +43,7 @@
     <div class="col-md-8">
         <div class="card p-4 shadow-sm h-100">
             <h4 class="fw-bold text-dark mb-3 border-bottom pb-2">➕ Add New Product</h4>
-            <form method="post" asp-controller="Home" asp-action="AddProduct">
+            <form method="post" asp-controller="Admin" asp-action="AddProduct">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Product Name</label>
@@ -92,7 +92,7 @@
     <div class="col-md-4">
         <div class="card p-4 shadow-sm mb-4">
             <h4 class="fw-bold text-dark mb-3 border-bottom pb-2">➕ Add New Category</h4>
-            <form method="post" asp-controller="Home" asp-action="AddCategory">
+            <form method="post" asp-controller="Admin" asp-action="AddCategory">
                 <div class="mb-3">
                     <label class="form-label">Category Name</label>
                     <input type="text" name="name" class="form-control" required placeholder="e.g. Games" />
@@ -191,11 +191,11 @@
                             {
                                 <span class="badge bg-warning text-dark mb-2">Pending Approval</span>
                                 <div class="d-flex gap-1">
-                                    <form method="post" asp-controller="Home" asp-action="ApproveOrder">
+                                    <form method="post" asp-controller="Admin" asp-action="ApproveOrder">
                                         <input type="hidden" name="orderId" value="@order.OrderId" />
                                         <button type="submit" class="btn btn-success btn-sm py-0 px-2 fw-bold" style="font-size: 0.75rem;">Approve</button>
                                     </form>
-                                    <form method="post" asp-controller="Home" asp-action="RejectOrder">
+                                    <form method="post" asp-controller="Admin" asp-action="RejectOrder">
                                         <input type="hidden" name="orderId" value="@order.OrderId" />
                                         <button type="submit" class="btn btn-danger btn-sm py-0 px-2 fw-bold" style="font-size: 0.75rem;">Reject</button>
                                     </form>

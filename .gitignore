@@ -12,3 +12,5 @@ obj/
 [Rr]elease/
 # EF Core Migrations can be tracked, but let's ignore user secrets and appsettings.Development.json if needed (optional)
 appsettings.Development.json
+*.mdf
+*.ldf
