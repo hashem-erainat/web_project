@@ -89,6 +89,34 @@ namespace project_18.Controllers
         }
 
         [HttpPost]
+        public IActionResult DeleteProduct(int productId)
+        {
+            string role = HttpContext.Session.GetString("Role") ?? "";
+            if (role != "Admin")
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var product = context.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product != null)
+            {
+                bool hasOrders = context.Orders.Any(o => o.ProductId == productId);
+                if (hasOrders)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete product because it has associated orders/sales logs.";
+                }
+                else
+                {
+                    context.Products.Remove(product);
+                    context.SaveChanges();
+                    TempData["SuccessMessage"] = "Product deleted successfully.";
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public IActionResult AddProduct(Product product)
         {
             string role = HttpContext.Session.GetString("Role") ?? "";

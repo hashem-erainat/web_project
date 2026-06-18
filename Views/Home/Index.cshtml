@@ -4,6 +4,7 @@
     var categories = ViewBag.Categories as List<project_18.Models.Category> ?? new List<project_18.Models.Category>();
     int selectedCategory = ViewBag.SelectedCategory;
     string searchQuery = ViewBag.SearchQuery;
+    var pendingProductIds = ViewBag.PendingProductIds as HashSet<int> ?? new HashSet<int>();
 }
 
 <div class="row mb-4 align-items-center">
@@ -47,13 +48,20 @@ else
     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
         @foreach (var product in Model)
         {
+            var isPending = pendingProductIds.Contains(product.ProductId);
             <div class="col">
-                <div class="card h-100 product-card @(product.IsSold ? "sold-out" : "")">
+                <div class="card h-100 product-card @(product.IsSold ? "sold-out" : "") @(isPending ? "reserved" : "")">
                     
                     @if (product.IsSold)
                     {
                         <div class="sold-out-overlay">
                             <div class="sold-out-stamp">SOLD OUT</div>
+                        </div>
+                    }
+                    else if (isPending)
+                    {
+                        <div class="sold-out-overlay">
+                            <div class="reserved-stamp">RESERVED</div>
                         </div>
                     }
 

@@ -116,5 +116,19 @@ body {
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
 }
 
+.reserved {
+    opacity: 0.8;
+}
 
-
+.reserved-stamp {
+    border: 3px solid #ffc107;
+    color: #ffc107;
+    font-size: 1.4rem;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 6px;
+    transform: rotate(-12deg);
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    letter-spacing: 1px;
+}

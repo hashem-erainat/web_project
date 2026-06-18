@@ -25,6 +25,9 @@ namespace project_18.Controllers
             ViewBag.SelectedCategory = categoryId ?? 0;
             ViewBag.SearchQuery = search ?? "";
 
+            var pendingProductIds = context.Orders.Where(o => o.Status == "Pending").Select(o => o.ProductId).ToHashSet();
+            ViewBag.PendingProductIds = pendingProductIds;
+
             var query = context.Products.Include(p => p.Category).AsQueryable();
 
             if (categoryId.HasValue && categoryId.Value > 0)
@@ -52,6 +55,8 @@ namespace project_18.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.IsPending = context.Orders.Any(o => o.ProductId == id && o.Status == "Pending");
 
             return View(product);
         }

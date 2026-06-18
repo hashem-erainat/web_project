@@ -7,13 +7,22 @@
     <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">← Back to Catalog</a>
 </div>
 
+@{
+    bool isPending = ViewBag.IsPending ?? false;
+}
 <div class="row g-4">
     <div class="col-md-6">
-        <div class="card product-card @(Model.IsSold ? "sold-out" : "")">
+        <div class="card product-card @(Model.IsSold ? "sold-out" : "") @(isPending ? "reserved" : "")">
             @if (Model.IsSold)
             {
                 <div class="sold-out-overlay">
                     <div class="sold-out-stamp">SOLD OUT</div>
+                </div>
+            }
+            else if (isPending)
+            {
+                <div class="sold-out-overlay">
+                    <div class="reserved-stamp">RESERVED</div>
                 </div>
             }
             <img src="@Model.ImageUrl" class="card-img-top w-100" style="max-height: 450px; object-fit: cover;" alt="@Model.Name" onerror="this.src='/images/placeholder.png';" />
@@ -57,6 +66,12 @@
                 {
                     <div class="alert alert-danger text-center fw-bold">
                         🚫 Sorry, this item has been sold and is no longer available.
+                    </div>
+                }
+                else if (isPending)
+                {
+                    <div class="alert alert-warning text-center fw-bold">
+                        ⏳ Under Review (Pending Admin Approval)
                     </div>
                 }
                 else

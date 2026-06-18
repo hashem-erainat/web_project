@@ -29,8 +29,13 @@ namespace project_18.Controllers
                               .Select(int.Parse)
                               .ToList();
 
+                var unavailableProductIds = context.Orders
+                                                   .Where(o => o.Status == "Pending" || o.Status == "Completed")
+                                                   .Select(o => o.ProductId)
+                                                   .ToList();
+
                 products = context.Products.Include(p => p.Category)
-                                           .Where(p => ids.Contains(p.ProductId) && !p.IsSold)
+                                           .Where(p => ids.Contains(p.ProductId) && !p.IsSold && !unavailableProductIds.Contains(p.ProductId))
                                            .ToList();
             }
 
@@ -42,6 +47,12 @@ namespace project_18.Controllers
         {
             var product = context.Products.Find(productId);
             if (product == null || product.IsSold)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            bool isReservedOrSold = context.Orders.Any(o => o.ProductId == productId && (o.Status == "Pending" || o.Status == "Completed"));
+            if (isReservedOrSold)
             {
                 return RedirectToAction("Index", "Home");
             }

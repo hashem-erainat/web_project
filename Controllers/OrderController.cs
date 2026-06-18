@@ -55,9 +55,12 @@ namespace project_18.Controllers
 
             var products = context.Products.Where(p => ids.Contains(p.ProductId)).ToList();
 
-            if (products.Any(p => p.IsSold))
+            var productIds = products.Select(p => p.ProductId).ToList();
+            bool alreadyReservedOrSold = context.Orders.Any(o => productIds.Contains(o.ProductId) && (o.Status == "Pending" || o.Status == "Completed"));
+
+            if (products.Any(p => p.IsSold) || alreadyReservedOrSold)
             {
-                TempData["ErrorMessage"] = "Sorry, some items in your cart are already sold!";
+                TempData["ErrorMessage"] = "Sorry, some items in your cart are already reserved or sold!";
                 return RedirectToAction("Index", "Cart");
             }
 
@@ -72,7 +75,7 @@ namespace project_18.Controllers
                     Status = "Pending"
                 };
                 context.Orders.Add(order);
-                product.IsSold = true;
+                // Do not mark product.IsSold = true here. It will only be set when Approved.
             }
 
             context.SaveChanges();

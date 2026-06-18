@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -107,7 +107,7 @@ namespace project_18.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "FullName", "Password", "Role", "Username" },
-                values: new object[] { 1, "BalaMarket Admin", "admin123", "Admin", "admin" });
+                values: new object[] { 1, "Mostamal Market Admin", "admin123", "Admin", "admin" });
 
             migrationBuilder.InsertData(
                 table: "Products",

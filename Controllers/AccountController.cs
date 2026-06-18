@@ -77,5 +77,57 @@ namespace project_18.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ChangePassword(string currentPassword, string newPassword, string confirmPassword)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            if (string.IsNullOrEmpty(currentPassword) || string.IsNullOrEmpty(newPassword) || string.IsNullOrEmpty(confirmPassword))
+            {
+                ViewBag.Error = "Please fill in all fields.";
+                return View();
+            }
+
+            if (newPassword != confirmPassword)
+            {
+                ViewBag.Error = "New password and confirmation do not match.";
+                return View();
+            }
+
+            var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            if (user.Password != currentPassword)
+            {
+                ViewBag.Error = "Current password is incorrect.";
+                return View();
+            }
+
+            user.Password = newPassword;
+            context.SaveChanges();
+
+            HttpContext.Session.Clear();
+            TempData["SuccessMessage"] = "Password changed successfully. Please log in with your new password.";
+            return RedirectToAction("Login");
+        }
     }
 }
